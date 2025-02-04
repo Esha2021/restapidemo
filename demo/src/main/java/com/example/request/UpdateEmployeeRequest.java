@@ -6,25 +6,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public class Employeerequest {
+public class UpdateEmployeeRequest {
 
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id")
+    @NotNull(message="Id is required")
     private Long employeeId;
 
-    @JsonProperty("Emp_Name")
-    @NotBlank(message="name is required")
+    //@JsonProperty("Emp_Name")
+
     private String employeeName;
 
-    @JsonProperty("Emp_Position")
+    //@JsonProperty("Emp_Position")
     private String position;
-    @JsonProperty("Emp_Age")
+   // @JsonProperty("Emp_Age")
     private int age;
-    @JsonProperty("Emp_YOE")
+   // @JsonProperty("Emp_YOE")
     private int yearOfExperience;
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public String getEmployeeName() {
         return employeeName;
@@ -56,8 +62,5 @@ public class Employeerequest {
 
     public void setYearOfExperience(int yearOfExperience) {
         this.yearOfExperience = yearOfExperience;
-    }
-
-    public Employeerequest() {
     }
 }

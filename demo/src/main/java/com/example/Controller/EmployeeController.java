@@ -3,7 +3,9 @@ package com.example.Controller;
 import com.example.Entity.EmployeeDetail;
 import com.example.Service.EmployeedetailService;
 import com.example.request.Employeerequest;
+import com.example.request.UpdateEmployeeRequest;
 import com.example.response.EmployeeResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,14 +45,15 @@ return employeedetailService.getAllEmployee();
     }
 
     @PostMapping("/createrequest")
-    public EmployeeResponse createEmplyoee(@RequestBody Employeerequest employeerequest){
+    public EmployeeResponse createEmplyoee( @Valid  @RequestBody Employeerequest employeerequest){
       EmployeeDetail employeedetail=employeedetailService.createEmployee(employeerequest);
       return new EmployeeResponse(employeedetail);
     }
 
-//@PutMapping("put")
-//    public void putEmployee(@RequestBody EmployeeDetail employeeDetail){
-//    employeedetailService.saveEmployee(employeeDetail);
-//    }employeeDetail
+    @PutMapping("/updaterequest")
+public EmployeeResponse updateEmployee( @Valid @RequestBody UpdateEmployeeRequest updateEmployeeRequest){
+EmployeeDetail  employeedetail=employeedetailService.UpdateEmployee(updateEmployeeRequest);
+        return new EmployeeResponse(employeedetail);
+    }
 
 }
