@@ -47,9 +47,18 @@ return employeeDetail;//
         return  employeeDetail;
     }
 
-//   // public void deleteEmployeebById(Long id){
-//        employeeRepository.deleteById(id);
-//    }
+   public String deleteEmployeeById(long id){
+        employeeRepository.deleteById(id);
+        return "sucessfully deleted";
+    }
 
+    public List<EmployeeDetail> getemployeeName( String employeeName){
+
+        return employeeRepository.findByemployeeName(employeeName);
+    }
+    public EmployeeDetail getEmployeeNameAndAge( String employeeName,int age){
+
+        return employeeRepository.findByemployeeNameAndAge(employeeName,age);
+    }
 
 }

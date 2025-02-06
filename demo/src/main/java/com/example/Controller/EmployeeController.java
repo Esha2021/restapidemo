@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -54,6 +55,36 @@ return employeedetailService.getAllEmployee();
 public EmployeeResponse updateEmployee( @Valid @RequestBody UpdateEmployeeRequest updateEmployeeRequest){
 EmployeeDetail  employeedetail=employeedetailService.UpdateEmployee(updateEmployeeRequest);
         return new EmployeeResponse(employeedetail);
+    }
+
+    @DeleteMapping("/delete")
+    public  String deleteemployee( @RequestParam long id){
+        return employeedetailService.deleteEmployeeById(id);
+    }
+    @DeleteMapping("/delete/{Id}")
+    public String deleteEmployee(@PathVariable long id){
+        return employeedetailService.deleteEmployeeById(id);
+
+    }
+
+    @GetMapping("/getByemployeeName/{employeeName}")
+    public List<EmployeeResponse> getEmployeeName(@PathVariable String employeeName) {
+        List<EmployeeDetail> employeedetail = employeedetailService.getemployeeName(employeeName);
+        List<EmployeeResponse> employeeResponseList = new ArrayList<>();
+
+                for (EmployeeDetail emp : employeedetail) {
+                EmployeeResponse response = new EmployeeResponse(emp);
+                System.out.println(emp.toString());
+                employeeResponseList.add(response);
+            }
+        return employeeResponseList;
+
+    }
+
+    @GetMapping("/getByemployeeNameAndAge/{employeeName}/{age}")
+    public EmployeeResponse getEmployeeNameAndAge(@PathVariable String employeeName,@PathVariable int age){
+
+        return new EmployeeResponse(employeedetailService.getEmployeeNameAndAge(employeeName,age));
     }
 
 }
