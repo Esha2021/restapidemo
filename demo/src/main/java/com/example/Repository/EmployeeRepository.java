@@ -10,8 +10,12 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<EmployeeDetail,Long> {
 
     List<EmployeeDetail> findByemployeeName(String employeeName);
- EmployeeDetail findByemployeeNameAndAge(String employeeName,int age);
 
+    EmployeeDetail findByemployeeNameAndAge(String employeeName,int age);
+
+    List<EmployeeDetail> findByyearOfExperienceOrAge(int yearOfExperience,int age);
+
+    List <EmployeeDetail> findByEmployeeNameIn(List<String> employeeName);
 
 
 }

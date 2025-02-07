@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employeedetail/")
@@ -87,4 +89,46 @@ EmployeeDetail  employeedetail=employeedetailService.UpdateEmployee(updateEmploy
         return new EmployeeResponse(employeedetailService.getEmployeeNameAndAge(employeeName,age));
     }
 
+    @GetMapping("/getYOEOrAge/{yearOfExperience}/{age}")
+    public List<EmployeeResponse> getYearOfExperienceOrAge( @ PathVariable int yearOfExperience,@PathVariable int age){
+        List<EmployeeDetail> employeedetail=employeedetailService.getYearOfExperienceOrAge(yearOfExperience,age);
+
+        List<EmployeeResponse> employeeResponseList=new ArrayList<EmployeeResponse>();
+        for(EmployeeDetail emp1:employeedetail) {
+            EmployeeResponse response = new EmployeeResponse(emp1);
+
+            employeeResponseList.add(response);
+        }
+        return employeeResponseList;
+
+    }
+    @GetMapping("getEmployeeNameIn/{employeeName}")
+public List<EmployeeResponse> getEmployeeNameIn(@PathVariable List<String> employeeName){
+        return employeedetailService.getEmployeeNameIn(employeeName)
+                .stream()
+                .map(EmployeeResponse::new)
+                .collect(Collectors.toList());
+
+    }
+    @GetMapping("/getPagination")
+public List<EmployeeResponse> getPagination(@RequestParam int pageNo,@RequestParam int pageSize){
+    return employeedetailService.getPagination(pageNo, pageSize)
+            .stream()
+            .map(EmployeeResponse::new)
+            .collect(Collectors.toList());
 }
+
+    @GetMapping("/getSorting")
+    public List<EmployeeResponse> getSorting(){
+        return employeedetailService.getSorting()
+                .stream()
+                .map(EmployeeResponse::new)
+                .collect(Collectors.toList());
+    }
+
+
+
+
+}
+
+

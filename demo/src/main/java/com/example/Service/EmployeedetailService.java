@@ -4,13 +4,14 @@ import com.example.Entity.EmployeeDetail;
 import com.example.Repository.EmployeeRepository;
 import com.example.request.Employeerequest;
 import com.example.request.UpdateEmployeeRequest;
-import com.example.response.EmployeeResponse;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
@@ -60,5 +61,26 @@ return employeeDetail;//
 
         return employeeRepository.findByemployeeNameAndAge(employeeName,age);
     }
+    public List<EmployeeDetail> getYearOfExperienceOrAge(int yearOfExperience,  int age) {
 
-}
+        return employeeRepository.findByyearOfExperienceOrAge( yearOfExperience,age);
+
+
+    }
+
+    public List<EmployeeDetail> getEmployeeNameIn( List<String> employeeName){
+
+        return employeeRepository.findByEmployeeNameIn(employeeName);
+
+    }
+
+    public List<EmployeeDetail> getPagination(int pageNo,int pageSize){
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return employeeRepository.findAll(pageable).getContent();
+    }
+    public List<EmployeeDetail> getSorting(){
+       Sort sort= Sort.by(Sort.Direction.ASC,"employeeName");
+        return employeeRepository.findAll(sort);
+    }
+
+    }
