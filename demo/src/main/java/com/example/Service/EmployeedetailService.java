@@ -80,7 +80,7 @@ return employeeDetail;//
     }
     public List<EmployeeDetail> getSorting(){
        Sort sort= Sort.by(Sort.Direction.ASC,"employeeName");
-        return employeeRepository.findAll(sort);
+        return  employeeRepository.findAll(sort);
     }
 
     }
