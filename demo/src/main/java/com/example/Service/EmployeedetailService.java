@@ -83,4 +83,21 @@ return employeeDetail;//
         return  employeeRepository.findAll(sort);
     }
 
+    public List<EmployeeDetail> getfirstnameContains(String employeeName ){
+
+        return  employeeRepository.findByEmployeeNameContaining(employeeName);
     }
+    public List<EmployeeDetail> getfirstnameStartingWith(String employeeName ){
+
+        return  employeeRepository.findByEmployeeNameStartingWith(employeeName);
+    }
+    public List<EmployeeDetail> getfirstnameEndingWith(String employeeName ){
+
+        return  employeeRepository.findByEmployeeNameEndingWith(employeeName);
+    }
+    public EmployeeDetail getEmployeeNameAndAgeJPQL( String employeeName,int age){
+
+        return employeeRepository.getemployeeNameAndAgeJPQL(employeeName,age);
+    }
+
+}

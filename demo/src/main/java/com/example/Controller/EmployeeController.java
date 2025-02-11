@@ -7,6 +7,8 @@ import com.example.request.UpdateEmployeeRequest;
 import com.example.response.EmployeeResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -126,6 +128,49 @@ public List<EmployeeResponse> getPagination(@RequestParam int pageNo,@RequestPar
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/getlike/{employeeName}")
+    public List<EmployeeResponse> getFindByContains(@PathVariable String employeeName){
+        List<EmployeeDetail> employeedetail=employeedetailService.getfirstnameContains(employeeName);
+
+        List<EmployeeResponse> employeeResponseList=new ArrayList<EmployeeResponse>();
+        for(EmployeeDetail emp1:employeedetail) {
+            EmployeeResponse response = new EmployeeResponse(emp1);
+
+            employeeResponseList.add(response);
+        }
+        return employeeResponseList;
+    }
+    @GetMapping("/getprefix/{employeeName}")
+    public List<EmployeeResponse> getFindByStartingWith(@PathVariable String employeeName){
+        List<EmployeeDetail> employeedetail=employeedetailService.getfirstnameStartingWith(employeeName);
+
+        List<EmployeeResponse> employeeResponseList=new ArrayList<EmployeeResponse>();
+        for(EmployeeDetail emp1:employeedetail) {
+            EmployeeResponse response = new EmployeeResponse(emp1);
+
+            employeeResponseList.add(response);
+        }
+        return employeeResponseList;
+    }
+    @GetMapping("/getsuffix/{employeeName}")
+    public List<EmployeeResponse> getFindByEndingWith(@PathVariable String employeeName){
+        List<EmployeeDetail> employeedetail=employeedetailService.getfirstnameEndingWith(employeeName);
+
+        List<EmployeeResponse> employeeResponseList=new ArrayList<EmployeeResponse>();
+        for(EmployeeDetail emp1:employeedetail) {
+            EmployeeResponse response = new EmployeeResponse(emp1);
+
+            employeeResponseList.add(response);
+        }
+        return employeeResponseList;
+    }
+
+    //JPQL cocepts
+  @GetMapping("/getJPQL/{employeeName}/{age}")
+    public EmployeeResponse getEmployeeNameAndAgeJPQL(@PathVariable("employeeName") String employeeName,@PathVariable("age") int age){
+
+        return new EmployeeResponse(employeedetailService.getEmployeeNameAndAgeJPQL(employeeName,age));
+    }
 
 
 
