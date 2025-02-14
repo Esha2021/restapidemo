@@ -172,6 +172,16 @@ public List<EmployeeResponse> getPagination(@RequestParam int pageNo,@RequestPar
         return new EmployeeResponse(employeedetailService.getEmployeeNameAndAgeJPQL(employeeName,age));
     }
 
+@PutMapping("putJPQL/{employeeId}/{employeeName}")
+public String updateEmployeeName(@PathVariable  Long employeeId, @PathVariable String employeeName){
+        return employeedetailService.updateEmployeeName(employeeId,employeeName) + "employees updated";
+}
+
+
+    @DeleteMapping("DeleteJPQL/{employeeId}/{employeeName}")
+    public String deleteEmployeeName(@PathVariable  Long employeeId, @PathVariable String employeeName){
+        return employeedetailService.deleteEmployeeName(employeeId,employeeName) + "employees updated";
+    }
 
 
 }

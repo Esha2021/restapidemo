@@ -25,6 +25,10 @@ public class EmployeeDetail {
 
     private int yearOfExperience;
 
+    @OneToOne
+    @JoinColumn(name="address_id")
+    private Address address ;
+
     public EmployeeDetail(String employeeName, String position, int age, int year_of_experience) {
 
         this.employeeName = employeeName;
@@ -41,6 +45,9 @@ public class EmployeeDetail {
         this.position =employeerequest.getPosition();
         this.age = employeerequest.getAge();
         this.yearOfExperience =employeerequest.getYearOfExperience() ;
+
+        
+
     }
 
     public Long getEmployeeId() {

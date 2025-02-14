@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.data.domain.Pageable;
@@ -99,5 +98,14 @@ return employeeDetail;//
 
         return employeeRepository.getemployeeNameAndAgeJPQL(employeeName,age);
     }
+    public Integer updateEmployeeName(Long employeeId, String employeeName){
+
+        return employeeRepository.updateEmployeeName(employeeId,employeeName);
+    }
+    public Integer deleteEmployeeName(Long employeeId, String employeeName){
+
+        return employeeRepository.deleteEmployeeName(employeeId,employeeName);
+    }
+
 
 }
